@@ -1,9 +1,9 @@
 {
   "name": "geocoder",
-  "description": "Geocoding through Google's Developer API",
-  "version": "0.2.3",
+  "description": "Geocoding through Google's and Geonames' Developer API",
+  "version": "0.2.4",
   "main": "./index.js",
-  "description": "node wrapper around google's geocoder api",
+  "description": "node wrapper around google's and geonames' geocoder api",
   "author": "Stephen Wyatt Bush <stephen.wyatt@gmail.com>",
   "repository" : "git://github.com/wyattdanger/geocoder",
   "homepage" : "https://github.com/wyattdanger/geocoder",
