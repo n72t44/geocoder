@@ -9,7 +9,7 @@ exports.geocode = function ( providerOpts, loc, cbk, opts ) {
   var options = _.extend({q: loc, maxRows: 10, username:providerOpts.username||"demo" }, opts || {});
 
   request({
-    uri:"http://api.geonames.org/searchJSON",
+    uri:(providerOpts.serverurl || "http://api.geonames.org")+"/searchJSON",
     qs:options
   }, function(err,resp,body) {
     if (err) return cbk(err);
@@ -26,17 +26,17 @@ exports.geocode = function ( providerOpts, loc, cbk, opts ) {
 
 exports.reverseGeocode = function ( providerOpts, lat, lng, cbk, opts ) {
 
-  var options = _.extend({lat:lat, lng:lng, username:providerOpts.username||"demo" }, opts || {});
+  var options = _.extend({lat:lat, lng:lng, style:"FULL", username:providerOpts.username||"demo" }, opts || {});
 
   request({
-    uri:"http://api.geonames.org/extendedFindNearby",
+    uri:(providerOpts.serverurl || "http://api.geonames.org")+"/extendedFindNearby",
     qs:options
   }, function(err,resp,body) {
     if (err) return cbk(err);
 
     var parser = new xml2js.Parser();
     parser.parseString(body, function (err, result) {
-      if (err) return cbk(err); 
+      if (err) return cbk(err);
 
       // Transform geonames' structure into something that looks like Google's JSON outpu
       // https://developers.google.com/maps/documentation/geocoding/#JSON
@@ -128,7 +128,7 @@ exports.reverseGeocode = function ( providerOpts, lat, lng, cbk, opts ) {
               "short_name":geoname.countryCode[0],
               "types":[ "country", "political"]
             });
-          
+
           } else if (fcode2google[geoname.fcode[0]]) {
 
 
