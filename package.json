@@ -1,22 +1,70 @@
 {
-  "name": "geocoder",
-  "description": "Geocoding through Google's and Geonames' Developer API",
-  "version": "0.2.4",
-  "main": "./index.js",
-  "description": "node wrapper around google's and geonames' geocoder api",
-  "author": "Stephen Wyatt Bush <stephen.wyatt@gmail.com>",
-  "repository" : "git://github.com/wyattdanger/geocoder",
-  "homepage" : "https://github.com/wyattdanger/geocoder",
-  "keywords" : [ "google", "geocode", "geonames", "reverse geocode" ],
+  "_args": [
+    [
+      "geocoder@/Users/nico/Documents/Development/GitHub/geocoder",
+      "/Users/nico/Documents/Development/node/quakeEvents"
+    ]
+  ],
+  "_from": "../../GitHub/geocoder",
+  "_id": "geocoder@0.2.5",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/geocoder",
+  "_phantomChildren": {
+    "sax": "1.2.1"
+  },
+  "_requested": {
+    "name": "geocoder",
+    "raw": "geocoder@/Users/nico/Documents/Development/GitHub/geocoder",
+    "rawSpec": "/Users/nico/Documents/Development/GitHub/geocoder",
+    "scope": null,
+    "spec": "/Users/nico/Documents/Development/GitHub/geocoder",
+    "type": "directory"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "file:../../GitHub/geocoder",
+  "_shasum": "994086e8a1535a1940cba4094d7dd91c27dd353f",
+  "_shrinkwrap": null,
+  "_spec": "geocoder@/Users/nico/Documents/Development/GitHub/geocoder",
+  "_where": "/Users/nico/Documents/Development/node/quakeEvents",
+  "author": {
+    "email": "stephen.wyatt@gmail.com",
+    "name": "Stephen Wyatt Bush"
+  },
+  "bugs": {
+    "url": "https://github.com/wyattdanger/geocoder/issues"
+  },
+  "dependencies": {
+    "request": "2.11.1",
+    "underscore": "1.3.3",
+    "xml2js": "0.2.0"
+  },
+  "description": "node wrapper around google's geocoder api",
+  "devDependencies": {},
+  "gitHead": "060f520d6d7b08518ec8ab43fe3acdc06d352a19",
+  "homepage": "https://github.com/wyattdanger/geocoder",
+  "keywords": [
+    "google",
+    "geocode",
+    "geonames",
+    "reverse geocode"
+  ],
   "license": {
     "type": "Apachev2",
     "url": "http://www.apache.org/licenses/LICENSE-2.0"
   },
-  "dependencies" : {
-    "underscore" : "1.3.3",
-    "request":"2.11.1"
-  },
+  "main": "./index.js",
+  "name": "geocoder",
   "optionalDependencies": {
     "xml2js": "0.2.0"
-  }
+  },
+  "readme": "# Geocoder\n\n###Installation:\n\n    npm install geocoder\n\n### Usage\n\nYou can pass a string representation of a location and a callback function to `geocoder.geocode`. It will accept anything that Google will accept: cities, streets, countries, etc.\n\n###Example:\n\n```javascript\nvar geocoder = require('geocoder');\n\n// Geocoding\ngeocoder.geocode(\"Atlanta, GA\", function ( err, data ) {\n  // do something with data\n});\n\n// Reverse Geocoding\ngeocoder.reverseGeocode( 33.7489, -84.3789, function ( err, data ) {\n  // do something with data\n});\n\n// Setting sensor to true\ngeocoder.reverseGeocode( 33.7489, -84.3789, function ( err, data ) {\n  // do something with data\n}, { sensor: true });\n\n// Setting language to German\ngeocoder.reverseGeocode( 33.7489, -84.3789, function ( err, data ) {\n  // do something with data\n}, { language: 'de' });\n\n\n// Selecting another provider to do reverse geocoding\n// Currently only geonames and yahoo placefinder are supported\ngeocoder.selectProvider(\"geonames\",{\"username\":\"demo\"});\n\n// Output will be roughly in the same format as Google's\ngeocoder.reverseGeocode( 33.7489, -84.3789, function ( err, data ) {\n  // do something with data\n});\n\n// see http://developer.yahoo.com/geo/placefinder/guide/index.html\ngeocoder.selectProvider(\"yahoo\",{\"appid\":\"xxx\"});\n\n// Output will be roughly in the same format as Google's\ngeocoder.reverseGeocode( 33.7489, -84.3789, function ( err, data ) {\n  // do something with data\n});\n\n\n\n\n\n```\n\nResults will look like standard [Google JSON Output](http://code.google.com/apis/maps/documentation/geocoding/#JSON)\n\nYou can pass in an optional options hash as a last argument, useful for setting sensor to true (it defaults to false) and the language (default is empty which means that google geocoder will guess it by geo ip data). For details see the [Google Geocoding API Docs](http://code.google.com/intl/en-US/apis/maps/documentation/geocoding/#GeocodingRequests)\n\n###Testing:\n`nodeunit test`\n\n## Roadmap\n- Complete Test Suite\n- Better options handling\n\n## Further Reading\n- [Blog post](http://blog.stephenwyattbush.com/2011/07/16/geocoding-with-nodejs/)\n",
+  "readmeFilename": "README.markdown",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wyattdanger/geocoder.git"
+  },
+  "version": "0.2.3"
 }
