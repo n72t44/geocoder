@@ -46,12 +46,13 @@ exports.reverseGeocode = function(providerOpts, lat, lng, cbk, opts) {
         parser.parseString(body, function(err, result) {
             if (err) return cbk(err);
 
-
+/*
             var util = require('util');
             console.log("RAW RESULTS=" + util.inspect(result, {
                 showHidden: false,
                 depth: null
             }));
+*/
 
             // Transform geonames' structure into something that looks like Google's JSON outpu
             // https://developers.google.com/maps/documentation/geocoding/#JSON
@@ -149,44 +150,53 @@ exports.reverseGeocode = function(providerOpts, lat, lng, cbk, opts) {
                         });
 
                         // locality name
-                        if (geoname.distance && geoname.distance[0] < 60) {
-                            if (geoname.adminName3 && geoname.adminName2) {
-                                googlejson.results[0].address_components.push({
-                                    "long_name": geoname.adminName3[0] || geoname.adminName2[0],
-                                    "short_name": geoname.adminName3[0] || geoname.adminName2[0],
-                                    "types": ['locality', 'political']
-                                });
-                            } else if (geoname.name) {
-                                googlejson.results[0].address_components.push({
-                                    "long_name": geoname.name[0],
-                                    "short_name": geoname.name[0],
-                                    "types": ['locality', 'political']
-                                });
-                            }
-                        }
-                        // province or state
-                        if (geoname.adminName3 && geoname.adminName3[0] && geoname.adminName2 && geoname.adminName2[0]) {
+                        if (geoname.adminName3 && typeof geoname.adminName3[0] == 'string' && geoname.distance && geoname.distance[0] < 60) {
+                            googlejson.results[0].address_components.push({
+                                "long_name": geoname.adminName3[0],
+                                "short_name": geoname.adminName3[0],
+                                "types": ['locality', 'political']
+                            });
+                        } /*else if (geoname.adminName2 && typeof geoname.adminName2[0] == 'string' && geoname.distance && geoname.distance[0] < 60) {
                             googlejson.results[0].address_components.push({
                                 "long_name": geoname.adminName2[0],
-                                "short_name": isNaN(geoname.adminCode2[0]) ? geoname.adminCode2[0] : geoname.adminName2[0],
-                                "types": ['administrative_area_level_2', 'political']
+                                "short_name": geoname.adminName2[0],
+                                "types": ['locality', 'political']
                             });
-                        } else {
-                            if (geoname.adminName1 && geoname.adminName1[0])
+                        } */else if (geoname.name) {
+                            googlejson.results[0].address_components.push({
+                                "long_name": geoname.name[0],
+                                "short_name": geoname.name[0],
+                                "types": ['locality', 'political']
+                            });
+                        }
+
+                        // province or state
+                        if (geoname.adminName3 && geoname.adminName3[0]) {
+                            if (typeof geoname.adminName3[0] == 'string' && typeof geoname.adminCode3[0] == 'string')
                                 googlejson.results[0].address_components.push({
-                                    "long_name": geoname.adminName1[0],
-                                    "short_name": isNaN(geoname.adminCode1[0]._) ? geoname.adminCode1[0]._ : geoname.adminName1[0],
+                                    "long_name": geoname.adminName3[0],
+                                    "short_name": geoname.adminCode3[0],
+                                    "types": ['administrative_area_level_3', 'political']
+                                });
+                        }
+                        if (geoname.adminName2 && geoname.adminName2[0]) {
+                            if (typeof geoname.adminName2[0] == 'string' && typeof geoname.adminCode2[0] == 'string')
+                                googlejson.results[0].address_components.push({
+                                    "long_name": geoname.adminName2[0],
+                                    "short_name": geoname.adminCode2[0],
                                     "types": ['administrative_area_level_2', 'political']
                                 });
                         }
+                        if (geoname.adminName1 && geoname.adminName1[0]) {
+                            if (typeof geoname.adminName1[0] == 'string')
+                                googlejson.results[0].address_components.push({
+                                    "long_name": geoname.adminName1[0],
+                                    "short_name": typeof geoname.adminCode1[0] == 'object' ? geoname.adminCode1[0]['$']['ISO3166-2'] : geoname.adminCode1[0],
+                                    "types": ['administrative_area_level_1', 'political']
+                                });
+                        }
+
                     }
-                    /*else if (fcode2google[geoname.fcode[0]]) {
-                                           googlejson.results[0].address_components.push({
-                                               "long_name": geoname.toponymName[0],
-                                               "short_name": geoname.name[0],
-                                               "types": fcode2google[geoname.fcode[0]]
-                                           });
-                                       }*/
                 });
             }
             // Make a formatted address as well as we can
