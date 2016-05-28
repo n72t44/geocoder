@@ -150,7 +150,7 @@ exports.reverseGeocode = function(providerOpts, lat, lng, cbk, opts) {
                         });
 
                         // locality name
-                        if (geoname.adminName3 && typeof geoname.adminName3[0] == 'string' && geoname.distance && geoname.distance[0] < 60) {
+                        if (geoname.adminName3 && typeof geoname.adminName3[0] == 'string' && geoname.distance && geoname.distance[0] < 20) {
                             googlejson.results[0].address_components.push({
                                 "long_name": geoname.adminName3[0],
                                 "short_name": geoname.adminName3[0],
