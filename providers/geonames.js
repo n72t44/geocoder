@@ -162,13 +162,13 @@ exports.reverseGeocode = function(providerOpts, lat, lng, cbk, opts) {
                                 "short_name": geoname.adminName2[0],
                                 "types": ['locality', 'political']
                             });
-                        } */else if (geoname.name) {
+                        } else if (geoname.name) {
                             googlejson.results[0].address_components.push({
                                 "long_name": geoname.name[0],
                                 "short_name": geoname.name[0],
                                 "types": ['locality', 'political']
                             });
-                        }
+                        }*/
 
                         // province or state
                         if (geoname.adminName3 && geoname.adminName3[0]) {
