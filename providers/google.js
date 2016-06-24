@@ -28,6 +28,7 @@ exports.reverseGeocode = function ( providerOpts, lat, lng, cbk, opts ) {
 
   request({
     uri:uri,
+    timeout: 5000,
     qs:options
   }, function(err,resp,body) {
     if (err) return cbk(err);
