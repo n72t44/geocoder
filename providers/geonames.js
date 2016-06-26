@@ -71,7 +71,7 @@ exports.reverseGeocode = function(providerOpts, lat, lng, cbk, opts) {
                 }]
             };
 
-            if (result.geonames.address) {
+            if (result && result.geonames && result.geonames.address) {
                 var a = result.geonames.address[0];
 
                 if (a.streetNumber && typeof a.streetNumber[0] == "string")
@@ -123,7 +123,7 @@ exports.reverseGeocode = function(providerOpts, lat, lng, cbk, opts) {
                     }
             }
 
-            if (result.geonames.geoname) {
+            if (result && result.geonames && result.geonames.geoname) {
                 // http://www.geonames.org/export/codes.html
                 // https://developers.google.com/maps/documentation/geocoding/#Types
                 var fcode2google = {
