@@ -6,7 +6,7 @@
     ]
   ],
   "_from": "../../GitHub/geocoder",
-  "_id": "geocoder@0.2.11",
+  "_id": "geocoder@0.2.12",
   "_inCache": true,
   "_installable": true,
   "_location": "/geocoder",
@@ -66,5 +66,5 @@
     "type": "git",
     "url": "git://github.com/wyattdanger/geocoder.git"
   },
-  "version": "0.2.9"
+  "version": "0.2.12"
 }
