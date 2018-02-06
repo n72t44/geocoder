@@ -38,7 +38,7 @@ exports.reverseGeocode = function(providerOpts, lat, lng, cbk, opts) {
 
     request({
         uri: (providerOpts.serverurl || "http://api.geonames.org") + "/findNearbyPlaceName",
-        timeout: 5000,
+        timeout: 15000,
         qs: options
     }, function(err, resp, body) {
         if (err) return cbk(err);
